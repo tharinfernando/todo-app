@@ -18,7 +18,7 @@
     <h2 class="text-2xl font-bold mb-2">Completed</h2>
     <ul v-for="(task, index) in completeTasks" :key="task.name" class="mb-3">
       <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50">
-        <input type="checkbox" v-model="task.completed" class="cursor-pointer"/>
+        <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index, true)" />
         <label :for="'done-task-'" class="px-10 line-through text-gray-500">{{ task.name }}</label>
         <DeleteIcon @click="removeTask(task, index, true)" class="absolute right-10 cursor-pointer hover:stroke-black " />
       </li>
@@ -66,10 +66,17 @@ export default {
       }
     },
     
-    completeTask(task, index) {
-      if (task.completed) {
-        this.completeTasks.unshift(task);
-        this.tasks.splice(index, 1);
+    completeTask(task, index, fromCompleteList = false) {
+      if (fromCompleteList) {
+        if (!task.completed) {
+          this.tasks.unshift(task);
+          this.completeTasks.splice(index, 1);
+        }
+      } else {
+        if (task.completed) {
+          this.completeTasks.unshift(task);
+          this.tasks.splice(index, 1);
+        }
       }
     },
     
