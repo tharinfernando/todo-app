@@ -2,8 +2,10 @@
   <div>
     <h2 class="text-3xl font-bold mb-2">ToDo List</h2>
     <div class="flex mx-16 mt-8 mb-10">
-      <input type="text" v-model="newTaskName" class="border border-gray-300 text-gray-900 rounded block w-full h-10 p-2.5" placeholder="New Task" @keydown.enter="addTask" />
+      <input type="text" v-model="newTaskName" class="border border-gray-300 text-gray-900 rounded block w-full h-10 p-2.5" placeholder="Add a Task" @keydown.enter="addTask" />
       <AddButton @click="addTask" text="add" />
+      <AddButton @click="callAPI" text="API" />
+      <DeleteButton @click="deleteAllTasks" text="Delete All" />
     </div>
     <ul v-for="(task, index) in tasks" :key="task.name" class="mb-3">
       <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50">
@@ -12,9 +14,9 @@
         <DeleteIcon @click="removeTask(task, index)" class="absolute right-10 cursor-pointer hover:stroke-black " />
       </li>
     </ul>
-    
+
     <hr class="my-5">
-    
+
     <h2 class="text-2xl font-bold mb-2">Completed</h2>
     <ul v-for="(task, index) in completeTasks" :key="task.name" class="mb-3">
       <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50">
@@ -29,6 +31,7 @@
 <script>
 import DeleteIcon from './Icons/DeleteIcon.vue';
 import AddButton from './Button.vue';
+import DeleteButton from './DeleteButton.vue';
 
 export default {
   name: "ItemTask",
@@ -38,19 +41,14 @@ export default {
   components: { 
     DeleteIcon,
     AddButton,
+    DeleteButton,
   },
     
   data() {
     return {
       newTaskName: '',
-      tasks: [
-        { name: 'Task 1', completed: false },
-        { name: 'Task 2', completed: false },
-        { name: 'Task 3', completed: false },
-      ],
-      completeTasks: [
-        { name: 'Task 01', completed: true },
-      ],
+      tasks: [],
+      completeTasks: [],
     };
   },
   
@@ -94,6 +92,26 @@ export default {
         }
       }
     },
+    
+    deleteAllTasks() {
+      this.tasks = [];
+      this.completeTasks = [];
+    },
+    
+    callAPI() {
+      fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+        .then(json => {
+          this.tasks = json.map(task => ({
+            name: task.title,
+            completed: false,
+          }));
+        })
+    },
   },
-}
+
+  created() {
+    this.callAPI();
+  },
+};
 </script>
