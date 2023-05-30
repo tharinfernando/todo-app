@@ -1,6 +1,6 @@
 <template>
     <div class="ml-10">
-        <button class="bg-red-500 hover:bg-red-600 w-24 h-10 text-white rounded active:bg-red-700 ">
+        <button class="bg-red-500 hover:bg-red-600 w-24 h-10 text-white rounded active:bg-red-700 shadow-md">
             {{ text }}
         </button>
     </div>

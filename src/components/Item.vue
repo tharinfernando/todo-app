@@ -2,16 +2,16 @@
   <div>
     <h2 class="text-3xl font-bold mb-2">ToDo List</h2>
     <div class="flex mx-16 mt-8 mb-10">
-      <input type="text" v-model="newTaskName" class="border border-gray-300 text-gray-900 rounded block w-full h-10 p-2.5" placeholder="Add a Task" @keydown.enter="addTask" />
+      <input type="text" v-model="newTaskName" class="border border-gray-300 text-gray-900 rounded block w-full h-10 p-2.5 outline-none" placeholder=" + Add a task" @keydown.enter="addTask" />
       <AddButton @click="addTask" text="add" />
       <AddButton @click="callAPI" text="API" />
-      <DeleteButton @click="deleteAllTasks" text="Delete All" />
+      <DeleteButton @click="deleteAll" text="Delete All" />
     </div>
     <ul v-for="(task, index) in tasks" :key="task.name" class="mb-3">
-      <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50">
+      <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50 shadow-lg">
         <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index)" />
         <label :for="'task-'" class="px-10" :class="{ 'line-through text-gray-500': task.completed }">{{ task.name }}</label>
-        <DeleteIcon @click="removeTask(task, index)" class="absolute right-10 cursor-pointer hover:stroke-black " />
+        <DeleteIcon @click="removeTask(task, index)" class="absolute right-10 cursor-pointer hover:stroke-black" />
       </li>
     </ul>
 
@@ -93,7 +93,7 @@ export default {
       }
     },
     
-    deleteAllTasks() {
+    deleteAll() {
       this.tasks = [];
       this.completeTasks = [];
     },
