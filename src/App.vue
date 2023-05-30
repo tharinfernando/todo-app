@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-52 mt-10">
+  <div class="mx-72 mt-10">
     <div class="mt-10 mb-10">
       <Item />
     </div>
