@@ -1,17 +1,20 @@
 <template>
-  <div class="mx-72 mt-10">
-    <div class="mt-10 mb-10">
-      <Item />
-    </div>
+<SideBar />
+<div class="flex justify-center mt-10">
+  <div>
+    <Item />
   </div>
+</div>
 </template>
 
 <script>
 import Item from './components/Item.vue';
+import SideBar from './components/SideBar.vue';
 
 export default {
 components :{
   Item,
+  SideBar,
 },
 }
 </script>

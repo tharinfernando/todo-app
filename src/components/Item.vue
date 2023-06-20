@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2 class="text-3xl font-bold mb-2">ToDo List</h2>
     <div class="flex mx-16 mt-8 mb-10">
       <input type="text" v-model="newTaskName" class="border border-gray-300 text-gray-900 rounded block w-full h-10 p-2.5 outline-none" placeholder=" + Add a task" @keydown.enter="addTask" />
       <AddButton @click="addTask" text="add" />
@@ -12,6 +11,7 @@
         <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index)" />
         <label :for="'task-'" class="px-10" :class="{ 'line-through text-gray-500': task.completed }">{{ task.name }}</label>
         <DeleteIcon @click="removeTask(task, index)" class="absolute right-10 cursor-pointer hover:stroke-black" />
+        <EditIcon @click="openTaskPopup(task)" class="absolute right-20 cursor-pointer hover:stroke-blue-600" />
       </li>
     </ul>
 
@@ -23,8 +23,10 @@
         <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index, true)" />
         <label :for="'done-task-'" class="px-10 line-through text-gray-500">{{ task.name }}</label>
         <DeleteIcon @click="removeTask(task, index, true)" class="absolute right-10 cursor-pointer hover:stroke-black " />
+        <EditIcon @click="openTaskPopup(task)" class="absolute right-20 cursor-pointer hover:stroke-blue-600" />
       </li>
     </ul>
+    <TaskPopup v-if="showTaskPopup" :task="selectedTask" @close="closeTaskPopup" />
   </div>
 </template>
 
@@ -32,6 +34,8 @@
 import DeleteIcon from './Icons/DeleteIcon.vue';
 import AddButton from './Button.vue';
 import DeleteButton from './DeleteButton.vue';
+import TaskPopup from './TaskPopup.vue';
+import EditIcon from './Icons/EditIcon.vue';
 
 export default {
   name: "ItemTask",
@@ -42,6 +46,8 @@ export default {
     DeleteIcon,
     AddButton,
     DeleteButton,
+    TaskPopup,
+    EditIcon,
   },
     
   data() {
@@ -49,6 +55,8 @@ export default {
       newTaskName: '',
       tasks: [],
       completeTasks: [],
+      showTaskPopup: false,
+      selectedTask: null
     };
   },
   
@@ -83,7 +91,6 @@ export default {
         this.completeTasks.splice(index, 1);
       } else {
         this.tasks.splice(index, 1);
-        
         if (task.completed) {
           const completeIndex = this.completeTasks.findIndex(completeTask => completeTask.name === task.name);
           if (completeIndex !== -1) {
@@ -98,20 +105,30 @@ export default {
       this.completeTasks = [];
     },
     
-    callAPI() {
-      fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(json => {
-          this.tasks = json.map(task => ({
-            name: task.title,
-            completed: false,
-          }));
-        })
+    //callAPI() {
+    //  fetch('https://jsonplaceholder.typicode.com/posts')
+    //    .then(response => response.json())
+    //    .then(json => {
+    //     this.tasks = json.map(task => ({
+    //        name: task.title,
+    //       completed: false,
+    //      }));
+    //    });
+    // },
+
+    openTaskPopup(task) {
+      this.selectedTask = task;
+      this.showTaskPopup = true;
     },
+
+    closeTaskPopup() {
+      this.selectedTask = null;
+      this.showTaskPopup = false;
+    }
   },
 
-  created() {
-    this.callAPI();
-  },
+  //created() {
+  //  this.callAPI();
+  //},
 };
 </script>
