@@ -7,25 +7,25 @@
       <DeleteButton @click="deleteAll" text="Delete All" />
     </div>
     <ul v-for="(task, index) in tasks" :key="task.name" class="mb-3">
-      <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50 shadow-lg">
+      <li class="relative flex items-center p-4 rounded-lg border hover:bg-gray-50 shadow-lg">
         <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index)" />
         <label :for="'task-'" class="px-10" :class="{ 'line-through text-gray-500': task.completed }">{{ task.name }}</label>
         <DeleteIcon @click="removeTask(task, index)" class="absolute right-10 cursor-pointer hover:stroke-black" />
         <EditIcon @click="openTaskPopup(task)" class="absolute right-20 cursor-pointer hover:stroke-blue-600" />
       </li>
     </ul>
-
-    <hr class="my-5">
-
-    <h2 class="text-2xl font-bold mb-2">Completed</h2>
-    <ul v-for="(task, index) in completeTasks" :key="task.name" class="mb-3">
-      <li class="relative flex items-center p-8 rounded-lg border hover:bg-gray-50">
-        <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index, true)" />
-        <label :for="'done-task-'" class="px-10 line-through text-gray-500">{{ task.name }}</label>
-        <DeleteIcon @click="removeTask(task, index, true)" class="absolute right-10 cursor-pointer hover:stroke-black " />
-        <EditIcon @click="openTaskPopup(task)" class="absolute right-20 cursor-pointer hover:stroke-blue-600" />
-      </li>
-    </ul>
+    <div v-if="completeTasks.length > 0">
+      <hr class="my-5">
+      <h2 class="text-2xl font-bold mb-2">Completed</h2>
+      <ul v-for="(task, index) in completeTasks" :key="task.name" class="mb-3">
+        <li class="relative flex items-center p-4 rounded-lg border hover:bg-gray-50 shadow-lg">
+          <input type="checkbox" v-model="task.completed" class="cursor-pointer" @change="completeTask(task, index, true)" />
+          <label :for="'done-task-'" class="px-10 line-through text-gray-500">{{ task.name }}</label>
+          <DeleteIcon @click="removeTask(task, index, true)" class="absolute right-10 cursor-pointer hover:stroke-black " />
+          <EditIcon @click="openTaskPopup(task)" class="absolute right-20 cursor-pointer hover:stroke-blue-600" />
+        </li>
+      </ul>
+    </div>
     <TaskPopup v-if="showTaskPopup" :task="selectedTask" @close="closeTaskPopup" @update-task-name="updateTaskName" />
   </div>
 </template>

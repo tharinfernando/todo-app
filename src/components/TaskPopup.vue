@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center items-center fixed top-0 left-0 w-screen h-screen bg-black">
-    <div class="bg-white p-6 rounded-lg w-3/6 h-3/6">
+  <div class="flex justify-center items-center fixed top-0 left-0 w-screen h-screen bg-white/50">
+    <div class="bg-white p-6 rounded-lg w-3/6 h-3/6 shadow-lg">
       <CloseIcon @click="closePopup" class="text-red-500 cursor-pointer" />
       <div class="p-2">
         <!-- Conditionally render editable input or display-only text -->
