@@ -1,16 +1,11 @@
 <template>
-    <header class="bg-black h-12">
-        <h1 class="text-lg text-gray-400 ml-10 pt-2">
-            {{ title }}
-        </h1>
-    </header>
+  <nav class="fixed top-0 z-50 w-full p-3 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 text-center text-white">
+    TODO LIST
+  </nav>
 </template>
 
 <script>
-export default{
-    name: "TopHeader",
-    props: {
-      title: String,
-    },
+export default {
+  name:"TopHeader",
 }
 </script>

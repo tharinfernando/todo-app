@@ -1,5 +1,5 @@
 <template>
-<SideBar />
+<Header />
 <div class="flex justify-center mt-10">
   <div>
     <Item />
@@ -8,13 +8,13 @@
 </template>
 
 <script>
+import Header from './components/Header.vue';
 import Item from './components/Item.vue';
-import SideBar from './components/SideBar.vue';
 
 export default {
 components :{
-  Item,
-  SideBar,
+    Item,
+    Header
 },
 }
 </script>
