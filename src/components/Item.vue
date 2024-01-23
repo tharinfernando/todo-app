@@ -105,16 +105,16 @@ export default {
       this.completeTasks = [];
     },
     
-    //callAPI() {
-    //  fetch('https://jsonplaceholder.typicode.com/posts')
-    //    .then(response => response.json())
-    //    .then(json => {
-    //     this.tasks = json.map(task => ({
-    //        name: task.title,
-    //       completed: false,
-    //      }));
-    //    });
-    // },
+    callAPI() {
+      fetch('https://jsonplaceholder.typicode.com/posts')
+        .then(response => response.json())
+        .then(json => {
+         this.tasks = json.map(task => ({
+            name: task.title,
+           completed: false,
+         }));
+        });
+     },
 
     openTaskPopup(task) {
       this.selectedTask = task;
@@ -127,8 +127,8 @@ export default {
     }
   },
 
-  //created() {
-  //  this.callAPI();
-  //},
+  created() {
+    this.callAPI();
+  },
 };
 </script>
