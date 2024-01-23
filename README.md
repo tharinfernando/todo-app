@@ -1,3 +1,2 @@
 # todo-app
-
-![Screenshot from 2023-04-09 11-24-12](https://user-images.githubusercontent.com/81947713/230756924-f67d34c5-f498-4bed-ac98-c424816e6839.png)
+![image](https://github.com/tharinfernando/todo-app/assets/81947713/d3e0832e-e190-4669-a6e9-2d454c96a5f0)
