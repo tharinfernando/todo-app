@@ -26,7 +26,7 @@
         <EditIcon @click="openTaskPopup(task)" class="absolute right-20 cursor-pointer hover:stroke-blue-600" />
       </li>
     </ul>
-    <TaskPopup v-if="showTaskPopup" :task="selectedTask" @close="closeTaskPopup" />
+    <TaskPopup v-if="showTaskPopup" :task="selectedTask" @close="closeTaskPopup" @update-task-name="updateTaskName" />
   </div>
 </template>
 
@@ -124,11 +124,19 @@ export default {
     closeTaskPopup() {
       this.selectedTask = null;
       this.showTaskPopup = false;
-    }
-  },
+    },
 
-  created() {
-    this.callAPI();
+    updateTaskName(updatedTaskName) {
+      const index = this.tasks.findIndex(task => task === this.selectedTask);
+      if (index !== -1) {
+        this.tasks[index].name = updatedTaskName;
+      }
+
+      const completeIndex = this.completeTasks.findIndex(task => task === this.selectedTask);
+      if (completeIndex !== -1) {
+        this.completeTasks[completeIndex].name = updatedTaskName;
+      }
+    },
   },
 };
 </script>
